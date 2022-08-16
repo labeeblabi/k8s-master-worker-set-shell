@@ -1,6 +1,6 @@
-echo "enter host-name for master"
-read hostname
-hostnamectl set-hostname $hostname
+#echo "enter host-name for master"
+#read hostname
+#hostnamectl set-hostname $hostname
 setenforce 0
 sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 #reboot
