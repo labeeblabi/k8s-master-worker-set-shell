@@ -1,3 +1,6 @@
+echo "enter host-name for worker"
+read hostname
+hostnamectl set-hostname $hostname
 setenforce 0
 sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
