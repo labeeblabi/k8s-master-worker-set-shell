@@ -1,8 +1,9 @@
-echo "enter host-name for worker"
-read hostname
-hostnamectl set-hostname $hostname
+#echo "enter host-name for worker"
+#read hostname
+#hostnamectl set-hostname $hostname
 setenforce 0
 sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
