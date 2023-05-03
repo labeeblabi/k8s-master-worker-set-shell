@@ -1,8 +1,19 @@
-#echo "enter host-name for worker"
-#read hostname
-#hostnamectl set-hostname $hostname
+echo "enter host-name for worker"
+read hostname
+hostnamectl set-hostname $hostname
 setenforce 0
 sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+yum install firewalld
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+sudo firewall-cmd --state
+firewall-cmd --permanent --add-port=6443/tcp
+firewall-cmd --permanent --add-port=2379-2380/tcp
+firewall-cmd --permanent --add-port=10250/tcp
+firewall-cmd --permanent --add-port=10251/tcp
+firewall-cmd --permanent --add-port=10252/tcp
+firewall-cmd --permanent --add-port=10255/tcp
+firewall-cmd --reload
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
